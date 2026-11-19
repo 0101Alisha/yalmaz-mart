@@ -3,66 +3,97 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="theme-color" content="#0f766e">
+    <meta name="theme-color" content="#991b1b">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-title" content="YALMAZ MART">
-    <title>YALMAZ MART - General Store | Hajipur</title>
+    <title>YALMAZ MART - Diwali & Chhath Puja Special | Hajipur</title>
     <style>
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
-        body { background-color: #f3f4f6; color: #1f2937; line-height: 1.6; }
-        header { background: linear-gradient(135deg, #0f766e, #115e59); color: white; text-align: center; padding: 2.2rem 1rem; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
-        header h1 { font-size: 2.2rem; letter-spacing: 1px; margin-bottom: 0.3rem; }
-        header p { font-size: 1.05rem; opacity: 0.95; font-weight: 500; }
-        .badge-container { margin-top: 0.8rem; display: flex; justify-content: center; gap: 0.5rem; flex-wrap: wrap; }
-        .badge { display: inline-block; background: #fbbf24; color: #1f2937; padding: 0.3rem 0.9rem; border-radius: 20px; font-size: 0.85rem; font-weight: bold; }
-        .badge-timing { display: inline-block; background: #ffffff; color: #0f766e; padding: 0.3rem 0.9rem; border-radius: 20px; font-size: 0.85rem; font-weight: bold; }
-        .container { max-width: 1000px; margin: 1.8rem auto; padding: 0 1rem; }
-        .section-title { text-align: center; font-size: 1.6rem; color: #0f766e; margin-bottom: 1rem; border-bottom: 2px solid #0f766e; display: inline-block; padding-bottom: 0.3rem; }
+        body { background-color: #fffbeb; color: #1f2937; line-height: 1.6; }
+        
+        /* Festive Top Banner */
+        .festive-strip { background: linear-gradient(90deg, #f59e0b, #fbbf24, #f59e0b); color: #7f1d1d; text-align: center; padding: 0.5rem; font-weight: bold; font-size: 0.95rem; letter-spacing: 0.5px; border-bottom: 2px solid #991b1b; }
+        
+        /* Header with Diwali & Chhath Theme */
+        header { background: radial-gradient(circle at top, #b91c1c, #7f1d1d); color: #fef3c7; text-align: center; padding: 2.2rem 1rem; box-shadow: 0 4px 12px rgba(127, 29, 29, 0.3); border-bottom: 4px solid #f59e0b; position: relative; }
+        .diya-row { font-size: 1.5rem; margin-bottom: 0.4rem; letter-spacing: 8px; }
+        header h1 { font-size: 2.4rem; letter-spacing: 1.5px; margin-bottom: 0.2rem; color: #fbbf24; text-shadow: 2px 2px 4px rgba(0,0,0,0.4); }
+        header p { font-size: 1.1rem; color: #fde68a; font-weight: 500; }
+        
+        .badge-container { margin-top: 1rem; display: flex; justify-content: center; gap: 0.6rem; flex-wrap: wrap; }
+        .badge { display: inline-block; background: #fbbf24; color: #7f1d1d; padding: 0.35rem 1rem; border-radius: 20px; font-size: 0.85rem; font-weight: bold; box-shadow: 0 2px 5px rgba(0,0,0,0.2); }
+        .badge-timing { display: inline-block; background: #ffffff; color: #991b1b; padding: 0.35rem 1rem; border-radius: 20px; font-size: 0.85rem; font-weight: bold; box-shadow: 0 2px 5px rgba(0,0,0,0.2); }
+        
+        /* Offer Highlight Box */
+        .offer-banner { background: linear-gradient(135deg, #fef3c7, #fde68a); border: 2px dashed #d97706; border-radius: 12px; padding: 1rem; text-align: center; margin: 1.5rem auto; max-width: 900px; color: #7f1d1d; }
+        .offer-banner h3 { font-size: 1.25rem; margin-bottom: 0.2rem; color: #991b1b; }
+        .offer-banner p { font-size: 0.98rem; font-weight: 500; }
+
+        .container { max-width: 1000px; margin: 1.2rem auto 2rem auto; padding: 0 1rem; }
+        .section-title { text-align: center; font-size: 1.65rem; color: #991b1b; margin-bottom: 1rem; border-bottom: 3px solid #f59e0b; display: inline-block; padding-bottom: 0.3rem; }
         .center-box { text-align: center; }
-        .search-box { max-width: 450px; margin: 0 auto 1.8rem auto; }
-        .search-box input { width: 100%; padding: 0.8rem 1.2rem; border: 2px solid #0f766e; border-radius: 25px; font-size: 1rem; outline: none; background: white; }
-        .search-box input:focus { box-shadow: 0 0 8px rgba(15, 118, 110, 0.3); }
+        
+        .search-box { max-width: 480px; margin: 0 auto 1.8rem auto; }
+        .search-box input { width: 100%; padding: 0.85rem 1.2rem; border: 2px solid #d97706; border-radius: 25px; font-size: 1rem; outline: none; background: white; box-shadow: 0 2px 6px rgba(217, 119, 6, 0.15); }
+        .search-box input:focus { border-color: #991b1b; box-shadow: 0 0 8px rgba(153, 27, 27, 0.3); }
+        
         .products { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1.2rem; margin-bottom: 2.5rem; }
-        .card { background: white; border-radius: 12px; padding: 1.3rem; text-align: center; box-shadow: 0 4px 10px rgba(0,0,0,0.06); transition: transform 0.2s; border-top: 4px solid #0f766e; display: flex; flex-direction: column; justify-content: space-between; }
-        .card:hover { transform: translateY(-4px); }
-        .icon { font-size: 2.6rem; margin-bottom: 0.4rem; }
-        .card h3 { font-size: 1.15rem; margin-bottom: 0.3rem; color: #111827; }
-        .price { font-size: 1.2rem; font-weight: bold; color: #0f766e; margin-bottom: 0.9rem; }
-        .btn-whatsapp { display: inline-block; background-color: #25D366; color: white; text-decoration: none; padding: 0.65rem 1rem; border-radius: 8px; font-weight: bold; width: 100%; font-size: 0.95rem; transition: background 0.3s; }
-        .btn-whatsapp:hover { background-color: #1ebe5d; }
-        .info-box { background: white; border-radius: 12px; padding: 1.8rem; box-shadow: 0 4px 10px rgba(0,0,0,0.06); margin-bottom: 2rem; border-left: 5px solid #0f766e; }
-        .info-box h2 { color: #0f766e; margin-bottom: 1rem; font-size: 1.4rem; }
+        .card { background: white; border-radius: 14px; padding: 1.3rem; text-align: center; box-shadow: 0 4px 12px rgba(153, 27, 27, 0.08); transition: transform 0.2s, box-shadow 0.2s; border-top: 4px solid #d97706; border-bottom: 2px solid #fde68a; display: flex; flex-direction: column; justify-content: space-between; position: relative; }
+        .card:hover { transform: translateY(-5px); box-shadow: 0 8px 18px rgba(153, 27, 27, 0.15); }
+        .festive-tag { position: absolute; top: 8px; right: 8px; background: #fef3c7; color: #991b1b; font-size: 0.7rem; font-weight: bold; padding: 2px 7px; border-radius: 10px; border: 1px solid #f59e0b; }
+        .icon { font-size: 2.7rem; margin-bottom: 0.4rem; }
+        .card h3 { font-size: 1.15rem; margin-bottom: 0.3rem; color: #1f2937; }
+        .price { font-size: 1.25rem; font-weight: bold; color: #b91c1c; margin-bottom: 0.9rem; }
+        
+        .btn-whatsapp { display: inline-block; background: linear-gradient(135deg, #16a34a, #15803d); color: white; text-decoration: none; padding: 0.65rem 1rem; border-radius: 8px; font-weight: bold; width: 100%; font-size: 0.95rem; transition: opacity 0.3s; }
+        .btn-whatsapp:hover { opacity: 0.9; }
+        
+        .info-box { background: white; border-radius: 14px; padding: 1.8rem; box-shadow: 0 4px 12px rgba(153, 27, 27, 0.08); margin-bottom: 2rem; border-left: 6px solid #b91c1c; border-right: 6px solid #f59e0b; }
+        .info-box h2 { color: #991b1b; margin-bottom: 1rem; font-size: 1.4rem; }
         .info-item { margin-bottom: 0.7rem; font-size: 1.05rem; }
         .closed-day { color: #dc2626; font-weight: bold; }
+        
         .action-buttons { display: flex; gap: 1rem; flex-wrap: wrap; margin-top: 1.5rem; }
-        .btn-call { background-color: #0284c7; color: white; text-decoration: none; padding: 0.8rem 1.5rem; border-radius: 8px; font-weight: bold; flex: 1; text-align: center; min-width: 150px; }
-        .btn-chat { background-color: #25D366; color: white; text-decoration: none; padding: 0.8rem 1.5rem; border-radius: 8px; font-weight: bold; flex: 1; text-align: center; min-width: 150px; }
-        footer { background-color: #1f2937; color: #d1d5db; text-align: center; padding: 1.5rem 1rem; margin-top: 3rem; font-size: 0.9rem; }
+        .btn-call { background: linear-gradient(135deg, #b91c1c, #991b1b); color: #fef3c7; text-decoration: none; padding: 0.85rem 1.5rem; border-radius: 8px; font-weight: bold; flex: 1; text-align: center; min-width: 150px; border: 1px solid #f59e0b; }
+        .btn-chat { background: linear-gradient(135deg, #16a34a, #15803d); color: white; text-decoration: none; padding: 0.85rem 1.5rem; border-radius: 8px; font-weight: bold; flex: 1; text-align: center; min-width: 150px; }
+        
+        footer { background-color: #7f1d1d; color: #fde68a; text-align: center; padding: 1.5rem 1rem; margin-top: 3rem; font-size: 0.95rem; border-top: 3px solid #f59e0b; }
     </style>
 </head>
 <body>
 
+    <div class="festive-strip">
+        🪔 शुभ दीपावली एवं छठ महापर्व की हार्दिक शुभकामनाएं 🌅
+    </div>
+
     <header>
+        <div class="diya-row">🪔 ✨ 🌅 ✨ 🪔</div>
         <h1>YALMAZ MART</h1>
         <p>Your Trusted General Store in Hajipur</p>
         <div class="badge-container">
-            <span class="badge">🛒 Best Quality • Fair Price</span>
+            <span class="badge">🎉 Diwali & Chhath Puja Special</span>
             <span class="badge-timing">⏰ 7:00 AM - 8:00 PM (Mon Closed)</span>
         </div>
     </header>
 
     <div class="container">
+        <div class="offer-banner">
+            <h3>🪔 छठ पूजा एवं दिवाली के लिए शुद्ध और ताज़ा राशन उपलब्ध! 🌅</h3>
+            <p>आटा, शुद्ध चावल, सरसों तेल, चीनी, दाल और पूजा व घर की सभी ज़रूरी चीज़ें उचित दाम पर घर बैठे WhatsApp से मंगाएं।</p>
+        </div>
+
         <div class="center-box">
-            <h2 class="section-title">Our Products (उपलब्ध सामान)</h2>
+            <h2 class="section-title">🛍️ Our Products (उपलब्ध सामान)</h2>
         </div>
 
         <div class="search-box">
-            <input type="text" id="searchInput" onkeyup="searchProducts()" placeholder="🔍 सामान खोजें (जैसे: Rice, Oil, Soap, Dal)...">
+            <input type="text" id="searchInput" onkeyup="searchProducts()" placeholder="🔍 सामान खोजें (जैसे: Rice, Oil, Aata, Soap)...">
         </div>
 
         <div class="products" id="productList">
             <!-- Product 1 -->
             <div class="card">
+                <span class="festive-tag">Chhath Special</span>
                 <div>
                     <div class="icon">🌾</div>
                     <h3>Aata (आटा)</h3>
@@ -73,6 +104,7 @@
 
             <!-- Product 2 -->
             <div class="card">
+                <span class="festive-tag">Festive Pick</span>
                 <div>
                     <div class="icon">🍚</div>
                     <h3>Basmati Rice</h3>
@@ -93,6 +125,7 @@
 
             <!-- Product 4 -->
             <div class="card">
+                <span class="festive-tag">Pure Quality</span>
                 <div>
                     <div class="icon">🫗</div>
                     <h3>Mustard Oil (सरसों तेल)</h3>
@@ -113,6 +146,7 @@
 
             <!-- Product 6 -->
             <div class="card">
+                <span class="festive-tag">Prasad Special</span>
                 <div>
                     <div class="icon">🍬</div>
                     <h3>Sugar (चीनी)</h3>
@@ -124,68 +158,3 @@
             <!-- Product 7 -->
             <div class="card">
                 <div>
-                    <div class="icon">🧂</div>
-                    <h3>Salt (नमक)</h3>
-                    <p class="price">₹40 / Kg</p>
-                </div>
-                <a class="btn-whatsapp" href="https://wa.me." target="_blank">📲 Order on WhatsApp</a>
-            </div>
-
-            <!-- Product 8 -->
-            <div class="card">
-                <div>
-                    <div class="icon">🍲</div>
-                    <h3>Dal (Pulses)</h3>
-                    <p class="price">₹80 / Kg</p>
-                </div>
-                <a class="btn-whatsapp" href="https://wa.me." target="_blank">📲 Order on WhatsApp</a>
-            </div>
-
-            <!-- Product 9 -->
-            <div class="card">
-                <div>
-                    <div class="icon">🟡</div>
-                    <h3>Mung Dal (मूंग दाल)</h3>
-                    <p class="price">₹98 / Kg</p>
-                </div>
-                <a class="btn-whatsapp" href="https://wa.me." target="_blank">📲 Order on WhatsApp</a>
-            </div>
-
-            <!-- Product 10 -->
-            <div class="card">
-                <div>
-                    <div class="icon">🟠</div>
-                    <h3>Chana Dal (चना दाल)</h3>
-                    <p class="price">₹75 / Kg</p>
-                </div>
-                <a class="btn-whatsapp" href="https://wa.me." target="_blank">📲 Order on WhatsApp</a>
-            </div>
-
-            <!-- Product 11 -->
-            <div class="card">
-                <div>
-                    <div class="icon">🟤</div>
-                    <h3>Chana (चना)</h3>
-                    <p class="price">₹80 / Kg</p>
-                </div>
-                <a class="btn-whatsapp" href="https://wa.me." target="_blank">📲 Order on WhatsApp</a>
-            </div>
-
-            <!-- Product 12 -->
-            <div class="card">
-                <div>
-                    <div class="icon">🫓</div>
-                    <h3>Papad Lizzat</h3>
-            <p class="price">₹60 / pkt</p>
-                </div>
-                <a class="btn-whatsapp" href="https://wa.me." target="_blank">📲 Order on WhatsApp</a>
-            </div>
-                     <!-- Product 13 -->
-            <div class="card">
-                <div>
-                    <div class="icon">🟤</div>
-                    <h3>Sattu (सत्तू)</h3>
-                    <p class="price">₹160 / Kg</p>
-                </div>
-                <a class="btn-whatsapp" href="https://wa.me." target="_blank">📲 Order on WhatsApp</a>
-            </div>
