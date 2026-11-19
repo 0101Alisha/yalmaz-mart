@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#0f766e">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-title" content="YALMAZ MART">
+    <title>YALMAZ MART - General Store | Hajipur</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+        body { background-color: #f3f4f6; color: #1f2937; line-height: 1.6; }
+        header { background: linear-gradient(135deg, #0f766e, #115e59); color: white; text-align: center; padding: 2.5rem 1rem; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
+        header h1 { font-size: 2.2rem; letter-spacing: 1px; margin-bottom: 0.3rem; }
+        header p { font-size: 1.1rem; opacity: 0.9; font-weight: 500; }
+        .badge { display: inline-block; background: #fbbf24; color: #1f2937; padding: 0.25rem 0.8rem; border-radius: 20px; font-size: 0.85rem; font-weight: bold; margin-top: 0.5rem; }
+        .container { max-width: 900px; margin: 2rem auto; padding: 0 1rem; }
+        .section-title { text-align: center; font-size: 1.6rem; color: #0f766e; margin-bottom: 1.5rem; border-bottom: 2px solid #0f766e; display: inline-block; padding-bottom: 0.3rem; }
+        .center-box { text-align: center; }
+        .products { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1.5rem; margin-bottom: 2.5rem; }
+        .card { background: white; border-radius: 12px; padding: 1.5rem; text-align: center; box-shadow: 0 4px 10px rgba(0,0,0,0.06); transition: transform 0.2s; border-top: 4px solid #0f766e; }
+        .card:hover { transform: translateY(-5px); }
+        .icon { font-size: 3rem; margin-bottom: 0.5rem; }
+        .card h3 { font-size: 1.3rem; margin-bottom: 0.4rem; color: #111827; }
+        .price { font-size: 1.25rem; font-weight: bold; color: #0f766e; margin-bottom: 1rem; }
+        .btn-whatsapp { display: inline-block; background-color: #25D366; color: white; text-decoration: none; padding: 0.7rem 1.2rem; border-radius: 8px; font-weight: bold; width: 100%; transition: background 0.3s; }
+        .btn-whatsapp:hover { background-color: #1ebe5d; }
+        .info-box { background: white; border-radius: 12px; padding: 1.8rem; box-shadow: 0 4px 10px rgba(0,0,0,0.06); margin-bottom: 2rem; }
+        .info-box h2 { color: #0f766e; margin-bottom: 1rem; font-size: 1.4rem; }
+        .info-item { margin-bottom: 0.8rem; font-size: 1.05rem; }
+        .action-buttons { display: flex; gap: 1rem; flex-wrap: wrap; margin-top: 1.5rem; }
+        .btn-call { background-color: #0284c7; color: white; text-decoration: none; padding: 0.8rem 1.5rem; border-radius: 8px; font-weight: bold; flex: 1; text-align: center; }
+        .btn-chat { background-color: #25D366; color: white; text-decoration: none; padding: 0.8rem 1.5rem; border-radius: 8px; font-weight: bold; flex: 1; text-align: center; }
+        footer { background-color: #1f2937; color: #d1d5db; text-align: center; padding: 1.5rem 1rem; margin-top: 3rem; font-size: 0.9rem; }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>YALMAZ MART</h1>
+        <p>Your Trusted General Store in Hajipur</p>
+        <span class="badge">🛒 Best Quality • Fair Price</span>
+    </header>
+
+    <div class="container">
+        <div class="center-box">
+            <h2 class="section-title">Our Products (उपलब्ध सामान)</h2>
+        </div>
+
+        <div class="products">
+            <!-- Product 1 -->
+            <div class="card">
+                <div class="icon">🍚</div>
+                <h3>Basmati Rice</h3>
+                <p class="price">₹100 / Kg</p>
+                <a class="btn-whatsapp" href="https://wa.me." target="_blank">📲 Order on WhatsApp</a>
+            </div>
+
+            <!-- Product 2 -->
+            <div class="card">
+                <div class="icon">🍲</div>
+                <h3>Dal (Pulses)</h3>
+                <p class="price">₹80 / Kg</p>
+                <a class="btn-whatsapp" href="https://wa.me." target="_blank">📲 Order on WhatsApp</a>
+            </div>
+
+            <!-- Product 3 -->
+            <div class="card">
+                <div class="icon">🧂</div>
+                <h3>Salt (नमक)</h3>
+                <p class="price">₹40 / Kg</p>
+                <a class="btn-whatsapp" href="https://wa.me." target="_blank">📲 Order on WhatsApp</a>
+            </div>
+        </div>
+
+        <!-- Store Information -->
+        <div class="info-box">
+            <h2>📍 Store Details & Contact (दुकान का पता)</h2>
+            <p class="info-item"><strong>Shop Name:</strong> YALMAZ MART (General Store)</p>
+            <p class="info-item"><strong>Address:</strong> Nakhas Chowk, Ander Kila, Hajipur, Vaishali - 844101</p>
+            <p class="info-item"><strong>Contact / WhatsApp:</strong> +91 8292887576</p>
+            
+            <div class="action-buttons">
+                <a href="tel:+918292887576" class="btn-call">📞 Call Now</a>
+                <a href="https://wa.me." target="_blank" class="btn-chat">💬 Chat on WhatsApp</a>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2026 YALMAZ MART, Hajipur. All Rights Reserved.</p>
+    </footer>
+
+</body>
+</html>
