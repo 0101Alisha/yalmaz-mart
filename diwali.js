@@ -1,357 +1,191 @@
-<!DOCTYPE html>
-<html lang="hi">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>YALMAZ MART - Diwali & Chhath Special | Hajipur</title>
-    <style>
-        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, sans-serif; }
-        body { background-color: #fffbeb; color: #1f2937; overflow-x: hidden; }
-        #sc-diwali {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            z-index: 9999;
-        }
-        .strip { background: linear-gradient(90deg, #f59e0b, #fbbf24, #f59e0b); color: #7f1d1d; text-align: center; padding: 8px; font-weight: bold; border-bottom: 2px solid #991b1b; }
-        header { background: radial-gradient(circle at top, #991b1b, #450a0a); color: #fef3c7; text-align: center; padding: 35px 15px; border-bottom: 4px solid #f59e0b; position: relative; overflow: hidden; }
-        #fwCanvas { position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 1; }
-        .h-content { position: relative; z-index: 2; }
-        header h1 { font-size: 2.4rem; color: #fbbf24; text-shadow: 2px 2px 6px #000; }
-        .badges { margin-top: 12px; display: flex; justify-content: center; gap: 10px; flex-wrap: wrap; }
-        .badge { background: #fbbf24; color: #7f1d1d; padding: 5px 14px; border-radius: 20px; font-weight: bold; font-size: 0.85rem; }
-        .badge-w { background: #fff; color: #991b1b; }
-        .container { max-width: 1000px; margin: 20px auto; padding: 0 15px; }
-        .offer { background: #fef3c7; border: 2px dashed #d97706; border-radius: 12px; padding: 14px; text-align: center; margin-bottom: 20px; color: #7f1d1d; }
-        .title-box { text-align: center; margin-bottom: 15px; }
-        .title-box h2 { color: #991b1b; border-bottom: 3px solid #f59e0b; display: inline-block; padding-bottom: 4px; }
-        .search { max-width: 450px; margin: 0 auto 22px auto; }
-        .search input { width: 100%; padding: 12px 18px; border: 2px solid #d97706; border-radius: 25px; font-size: 1rem; outline: none; }
-        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 16px; margin-bottom: 30px; }
-        .card { background: #fff; border-radius: 12px; padding: 18px; text-align: center; box-shadow: 0 4px 10px rgba(153,27,27,0.1); border-top: 4px solid #d97706; display: flex; flex-direction: column; justify-content: space-between; position: relative; }
-        .tag { position: absolute; top: 8px; right: 8px; background: #fef3c7; color: #991b1b; font-size: 0.7rem; font-weight: bold; padding: 2px 7px; border-radius: 8px; border: 1px solid #f59e0b; }
-        .icon { font-size: 2.5rem; margin-bottom: 6px; }
-        .price { font-size: 1.2rem; font-weight: bold; color: #b91c1c; margin: 8px 0 12px 0; }
-        .btn-wa { background: #16a34a; color: #fff; text-decoration: none; padding: 10px; border-radius: 8px; font-weight: bold; display: block; }
-        .info { background: #fff; border-radius: 12px; padding: 22px; box-shadow: 0 4px 10px rgba(0,0,0,0.08); border-left: 6px solid #b91c1c; border-right: 6px solid #f59e0b; }
-        .info h2 { color: #991b1b; margin-bottom: 12px; }
-        .info p { margin-bottom: 8px; font-size: 1.05rem; }
-        .btns { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 15px; }
-        .btn-c { background: #991b1b; color: #fef3c7; text-decoration: none; padding: 12px; border-radius: 8px; font-weight: bold; flex: 1; text-align: center; }
-        .btn-w { background: #16a34a; color: #fff; text-decoration: none; padding: 12px; border-radius: 8px; font-weight: bold; flex: 1; text-align: center; }
-        footer { background: #7f1d1d; color: #fde68a; text-align: center; padding: 18px; margin-top: 30px; border-top: 3px solid #f59e0b; }
-    </style>
-</head>
-<body>
-    <canvas id="sc-diwali"></canvas>
+(function () {
+  var cv = document.getElementById('sc-diwali');
+  if (!cv || !cv.getContext) return;
+  var c = cv.getContext('2d');
+  var still = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var G = 900, W = 0, H = 0, K = 1, pots = [], rockets = [], stars = [], halos = [], nextLaunch = 0.4;
+  
+  var COLS = [
+    ['#ffd166', '#ff9f1c', '#e06d00', '#c2410c'],
+    ['#ff9ac4', '#ff4f8b', '#d81b60', '#ad1457'],
+    ['#b9f6ca', '#3ddc84', '#16a34a', '#15803d'],
+    ['#a5d8ff', '#3b9cff', '#1d4ed8', '#1e3a8a'],
+    ['#e0b0ff', '#b15cff', '#7c3aed', '#5b21b6'],
+    ['#ffb4a2', '#ff5a36', '#dc2626', '#991b1b'],
+    ['#a5f3fc', '#22d3ee', '#0891b2', '#0e7490']
+  ];
+  var seed = 7;
+  function hexA(hex, a) { return 'rgba(' + parseInt(hex.slice(1, 3), 16) + ',' + parseInt(hex.slice(3, 5), 16) + ',' + parseInt(hex.slice(5, 7), 16) + ',' + a + ')'; }
+  function rnd() { return (seed = (seed * 16807) % 2147483647) / 2147483647; }
 
-    <div class="strip">✨ शुभ दीपावली एवं छठ महापर्व की हार्दिक शुभकामनाएं ✨</div>
-    <header>
-        <canvas id="fwCanvas"></canvas>
-        <div class="h-content">
-            <div style="font-size:1.5rem; letter-spacing:6px;">🪔 ✨ 🎆 🌅 🎇 ✨ 🪔</div>
-            <h1>YALMAZ MART</h1>
-            <p>Your Trusted General Store in Hajipur</p>
-            <div class="badges">
-                <span class="badge">🎉 Diwali & Chhath Puja Special</span>
-                <span class="badge badge-w">⏰ 7:00 AM - 8:00 PM (Mon Closed)</span>
-            </div>
-        </div>
-    </header>
+  function layout() {
+    var dpr = window.devicePixelRatio || 1;
+    W = window.innerWidth; H = window.innerHeight;
+    cv.width = Math.round(W * dpr); cv.height = Math.round(H * dpr);
+    c.setTransform(dpr, 0, 0, dpr, 0, 0);
+    var phone = W < 576;
+    K = Math.min(2.4, Math.max(1, Math.min(W, H) / 720));
+    var s = Math.max(24, Math.min(84, W * 0.028));
+    var edge = Math.max(s * 0.75, Math.min(W * 0.045, 170));
+    var narrow = W < 900;
+    var h = H * (phone ? 0.36 : narrow ? 0.42 : 0.68);
+    var old = pots;
+    pots = [
+      { x: edge, s: s, h: h, col: COLS[0], wrap: ['#c2185b', '#ffb703'] },
+      { x: W - edge, s: s, h: h, col: COLS[0], wrap: ['#1d4ed8', '#ffb703'] }
+    ];
+    pots.forEach(function (p, i) {
+      p.y = H - 6 - p.s * 0.95;
+      p.rate = narrow ? 150 : 260; p.spread = narrow ? 0.09 : 0.15; p.acc = 0;
+      p.ps = old[i] ? old[i].ps : [];
+    });
+  }
 
-    <div class="container">
-        <div class="offer">
-            <h3>🪔 छठ पूजा एवं दिवाली के लिए शुद्ध और ताज़ा राशन उपलब्ध! 🌅</h3>
-            <p>घर बैठे WhatsApp पर ऑर्डर करें और उचित दाम पर ताज़ा सामान पाएं।</p>
-        </div>
+  function launch() {
+    var phone = W < 900;
+    var side = rnd() < 0.65;
+    var x = W * (side ? (rnd() < 0.5 ? 0.05 + rnd() * 0.25 : 0.7 + rnd() * 0.25) : 0.3 + rnd() * 0.4);
+    var top = H * (phone ? 0.1 + rnd() * 0.25 : 0.14 + rnd() * 0.3);
+    rockets.push({ x: x, y: H + 4, vx: (rnd() - 0.5) * 30, vy: -Math.sqrt(2 * G * (H + 4 - top)), trail: [],
+                   col: COLS[Math.floor(rnd() * COLS.length)], big: rnd() < 0.3 });
+    nextLaunch = phone ? 1.5 + rnd() * 1.5 : 0.8 + rnd() * 1.2;
+  }
 
-        <div class="title-box"><h2>🛍️ Our Products (सभी 16 उपलब्ध सामान)</h2></div>
-        <div class="search"><input type="text" id="q" onkeyup="filterItems()" placeholder="🔍 सामान खोजें (जैसे: Rice, Oil, Soap, Dal)..."></div>
-        <div class="grid" id="grid"></div>
+  function burst(r) {
+    var phone = W < 900;
+    var n = phone ? 30 : (r.big ? 60 : 46);
+    var speed = (phone ? 120 : (r.big ? 300 : 230)) * K * (0.9 + rnd() * 0.2);
+    var col2 = rnd() < 0.35 ? COLS[Math.floor(rnd() * COLS.length)] : r.col;
+    for (var i = 0; i < n; i++) {
+      var a = i / n * Math.PI * 2 + rnd() * 0.08, v = speed * (i % 2 ? 0.8 : 1) * (0.92 + rnd() * 0.16);
+      stars.push({ x: r.x, y: r.y, vx: Math.cos(a) * v, vy: Math.sin(a) * v, age: 0, life: 1.5 + rnd() * 0.6,
+                   tw: rnd(), col: i % 3 ? r.col : col2, w: (i % 2 ? 2.4 : 3.2) * K });
+    }
+    for (i = 0; i < n / 2; i++) {
+      a = i / (n / 2) * Math.PI * 2 + 0.2; v = speed * 0.45;
+      stars.push({ x: r.x, y: r.y, vx: Math.cos(a) * v, vy: Math.sin(a) * v, age: 0, life: 1.1 + rnd() * 0.4,
+                   tw: rnd(), col: col2, w: 2 * K });
+    }
+    halos.push({ x: r.x, y: r.y, age: 0, r: speed * 0.45, col: r.col });
+  }
 
-        <div class="info">
-            <h2>🪔 Store Details & Timing (दुकान का पता और समय)</h2>
-            <p><strong>Shop Name:</strong> YALMAZ MART (General Store)</p>
-            <p><strong>⏰ Opening Hours:</strong> 7:00 AM to 8:00 PM</p>
-            <p><strong>📅 Open Days:</strong> Tuesday to Sunday (<span style="color:#dc2626;font-weight:bold;">Monday Closed / सोमवार बंद</span>)</p>
-            <p><strong>🏠 Address:</strong> Nakhas Chowk, Ander Kila, Hajipur, Vaishali - 844101</p>
-            <p><strong>📞 Contact / WhatsApp:</strong> +91 8292887576</p>
-            <div class="btns">
-                <a href="tel:+918292887576" class="btn-c">📞 Call Now</a>
-                <a href="https://wa.me/918292887576" target="_blank" class="btn-w">💬 Chat on WhatsApp</a>
-            </div>
-        </div>
-    </div>
-
-    <footer><p>✨ Wishing You a Very Happy Diwali & Chhath Puja! ✨<br>&copy; 2026 YALMAZ MART, Hajipur.</p></footer>
-
-    <script>
-        const items = [
-            ["🌾", "Aata (आटा)", "₹45 / Kg", "Chhath Special"],
-            ["🍚", "Basmati Rice", "₹100 / Kg", "Festive Pick"],
-            ["🍚", "Nafice Rice", "₹110 / Kg", ""],
-            ["🛢️", "Mustard Oil (सरसों तेल)", "₹170 / Lt", "Pure Quality"],
-            ["🌻", "Fortune Oil", "₹165 / Lt", ""],
-            ["🍬", "Sugar (चीनी)", "₹75 / Kg", "Prasad Special"],
-            ["🧂", "Salt (नमक)", "₹40 / Kg", ""],
-            ["🍲", "Dal (Pulses)", "₹80 / Kg", ""],
-            ["🟡", "Mung Dal (मूंग दाल)", "₹98 / Kg", ""],
-            ["🟠", "Chana Dal (चना दाल)", "₹75 / Kg", ""],
-            ["🟤", "Chana (चना)", "₹80 / Kg", "Puja Special"],
-            ["🫓", "Papad Lizzat", "₹75 / Pc", ""],
-            ["🧼", "Fiama Soap", "₹60 / Pc", ""],
-            ["🧼", "Lifebuoy Soap", "₹45 / Pc", ""],
-            ["🧽", "Rin Soap", "₹10 / Pc", ""],
-            ["🧺", "Surf Excel", "₹220 / Kg", "Safai Special"]
-        ];
-
-        const grid = document.getElementById("grid");
-        items.forEach(p => {
-            const msg = encodeURIComponent(`Hello YALMAZ MART, I want to order ${p[1]} (${p[2]}).`);
-            grid.innerHTML += `<div class="card">${p[3]?`<span class="tag">${p[3]}</span>`:''}<div><div class="icon">${p[0]}</div><h3>${p[1]}</h3><div class="price">${p[2]}</div></div><a class="btn-wa" href="https://wa.me/918292887576?text=${msg}" target="_blank">📲 Order on WhatsApp</a></div>`;
-        });
-
-        function filterItems() {
-            const v = document.getElementById("q").value.toLowerCase();
-            document.querySelectorAll(".card").forEach(c => {
-                c.style.display = c.querySelector("h3").innerText.toLowerCase().includes(v) ? "flex" : "none";
-            });
-        }
-
-        (() => {
-            const c = document.getElementById("fwCanvas"), ctx = c.getContext("2d");
-            let pts = [];
-            function resize() { c.width = c.parentElement.offsetWidth; c.height = c.parentElement.offsetHeight; }
-            window.addEventListener("resize", resize);
-            resize();
-
-            function boom(isSparkler) {
-                const x = isSparkler ? (Math.random() > 0.5 ? c.width * 0.12 : c.width * 0.88) : Math.random() * c.width;
-                const y = isSparkler ? c.height * 0.55 : Math.random() * (c.height * 0.65);
-                const cols = isSparkler ? ["#fef08a", "#fbbf24", "#ffffff"] : ["#fbbf24", "#f87171", "#34d399", "#60a5fa", "#f472b6"];
-                const col = cols[Math.floor(Math.random() * cols.length)];
-                const count = isSparkler ? 14 : 26;
-                for (let i = 0; i < count; i++) {
-                    const a = Math.random() * Math.PI * 2, s = Math.random() * (isSparkler ? 3.5 : 2.5) + 0.8;
-                    pts.push({ x, y, vx: Math.cos(a) * s, vy: Math.sin(a) * s, a: 1, col, sp: isSparkler });
-                }
-            }
-
-            function loop() {
-                ctx.clearRect(0, 0, c.width, c.height);
-                for (let i = pts.length - 1; i >= 0; i--) {
-                    let p = pts[i];
-                    p.x += p.vx; p.y += p.vy; p.vy += 0.04; p.a -= p.sp ? 0.035 : 0.018;
-                    if (p.a <= 0) pts.splice(i, 1);
-                    else {
-                        ctx.globalAlpha = p.a; ctx.fillStyle = p.col;
-                        ctx.beginPath(); ctx.arc(p.x, p.y, p.sp ? 1.6 : 2.2, 0, Math.PI * 2); ctx.fill();
-                    }
-                }
-                requestAnimationFrame(loop);
-            }
-            setInterval(() => boom(false), 1100);
-            setInterval(() => boom(true), 220);
-            loop();
-        })();
-    </script>
-
-    <!-- diwali.js ka code direct yahin add kar diya gaya hai -->
-    <script>
-    (function () {
-      var cv = document.getElementById('sc-diwali');
-      if (!cv || !cv.getContext) return;
-      var c = cv.getContext('2d');
-      var still = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
-      var G = 900, W = 0, H = 0, K = 1, pots = [], rockets = [], stars = [], halos = [], nextLaunch = 0.4;
-
-      var COLS = [
-        ['#ffd166', '#ff9f1c', '#e06d00', '#c2410c'],
-        ['#ff9ac4', '#ff4f8b', '#d81b60', '#ad1457'],
-        ['#b9f6ca', '#3ddc84', '#16a34a', '#15803d'],
-        ['#a5d8ff', '#3b9cff', '#1d4ed8', '#1e3a8a'],
-        ['#e0b0ff', '#b15cff', '#7c3aed', '#5b21b6'],
-        ['#ffb4a2', '#ff5a36', '#dc2626', '#991b1b'],
-        ['#a5f3fc', '#22d3ee', '#0891b2', '#0e7490']
-      ];
-      var seed = 7;
-      function hexA(hex, a) { return 'rgba(' + parseInt(hex.slice(1, 3), 16) + ',' + parseInt(hex.slice(3, 5), 16) + ',' + parseInt(hex.slice(5, 7), 16) + ',' + a + ')'; }
-      function rnd() { return (seed = (seed * 16807) % 2147483647) / 2147483647; }
-
-      function layout() {
-        var dpr = window.devicePixelRatio || 1;
-        W = window.innerWidth; H = window.innerHeight;
-        cv.width = Math.round(W * dpr); cv.height = Math.round(H * dpr);
-        c.setTransform(dpr, 0, 0, dpr, 0, 0);
-        var phone = W < 576;
-        K = Math.min(2.4, Math.max(1, Math.min(W, H) / 720));
-        var s = Math.max(24, Math.min(84, W * 0.028));
-        var edge = Math.max(s * 0.75, Math.min(W * 0.045, 170));
-        var narrow = W < 900;
-        var h = H * (phone ? 0.36 : narrow ? 0.42 : 0.68);
-        var old = pots;
-        pots = [
-          { x: edge, s: s, h: h, col: COLS[0], wrap: ['#c2185b', '#ffb703'] },
-          { x: W - edge, s: s, h: h, col: COLS[0], wrap: ['#1d4ed8', '#ffb703'] }
-        ];
-        pots.forEach(function (p, i) {
-          p.y = H - 6 - p.s * 0.95;
-          p.rate = narrow ? 150 : 260; p.spread = narrow ? 0.09 : 0.15; p.acc = 0;
-          p.ps = old[i] ? old[i].ps : [];
-        });
+  function step(dt) {
+    nextLaunch -= dt;
+    if (nextLaunch <= 0 && halos.length < 5) launch();
+    for (var i = 0; i < rockets.length; i++) {
+      var r = rockets[i];
+      r.trail.push({ x: r.x, y: r.y }); if (r.trail.length > 16) r.trail.shift();
+      r.vy += G * dt; r.x += r.vx * dt; r.y += r.vy * dt;
+      if (r.vy > -40) { burst(r); rockets.splice(i--, 1); }
+    }
+    for (i = 0; i < stars.length; i++) {
+      var p = stars[i], drag = Math.pow(0.12, dt);
+      p.age += dt; p.vx *= drag; p.vy = p.vy * drag + G * 0.18 * dt; p.x += p.vx * dt; p.y += p.vy * dt;
+    }
+    stars = stars.filter(function (p) { return p.age < p.life; });
+    for (i = 0; i < halos.length; i++) halos[i].age += dt;
+    halos = halos.filter(function (h) { return h.age < 1.6; });
+    pots.forEach(function (f) {
+      f.acc += f.rate * dt;
+      while (f.acc >= 1) {
+        f.acc--;
+        var v0 = Math.sqrt(2 * G * f.h) * (0.72 + rnd() * 0.3);
+        var a = (rnd() * 2 - 1) * f.spread * (rnd() < 0.85 ? 1 : 1.6);
+        f.ps.push({ x: f.x, y: f.y, vx: Math.sin(a) * v0, vy: -Math.cos(a) * v0, age: 0,
+                    life: (0.75 + rnd() * 0.5) * 2 * v0 / G * 0.85, tw: rnd(), col: COLS[Math.floor(rnd() * COLS.length)] });
       }
-
-      function launch() {
-        var phone = W < 900;
-        var side = rnd() < 0.65;
-        var x = W * (side ? (rnd() < 0.5 ? 0.05 + rnd() * 0.25 : 0.7 + rnd() * 0.25) : 0.3 + rnd() * 0.4);
-        var top = H * (phone ? 0.1 + rnd() * 0.25 : 0.14 + rnd() * 0.3);
-        rockets.push({ x: x, y: H + 4, vx: (rnd() - 0.5) * 30, vy: -Math.sqrt(2 * G * (H + 4 - top)), trail: [],
-                       col: COLS[Math.floor(rnd() * COLS.length)], big: rnd() < 0.3 });
-        nextLaunch = phone ? 1.5 + rnd() * 1.5 : 0.8 + rnd() * 1.2;
+      for (var i = 0; i < f.ps.length; i++) {
+        var p = f.ps[i];
+        p.age += dt; p.vy += G * dt; p.vx *= 0.995; p.x += p.vx * dt; p.y += p.vy * dt;
       }
+      f.ps = f.ps.filter(function (p) { return p.age < p.life; });
+    });
+  }
+  
+  function drawPot(f) {
+    var s = f.s, h = s * 0.95, top = s * 0.16;
+    c.save(); c.translate(f.x, H - 6);
+    var halo = c.createRadialGradient(0, -h, 0, 0, -h, s * 0.9);
+    halo.addColorStop(0, 'rgba(255,207,107,.75)'); halo.addColorStop(1, 'rgba(255,207,107,0)');
+    c.fillStyle = halo; c.beginPath(); c.ellipse(0, -h, s * 0.9, s * 0.6, 0, 0, 7); c.fill();
+    c.fillStyle = 'rgba(40,20,0,.22)'; c.beginPath(); c.ellipse(0, 1, s * 0.62, s * 0.12, 0, 0, 7); c.fill();
+    c.fillStyle = f.wrap[0];
+    c.beginPath(); c.moveTo(-s / 2, 0); c.lineTo(-top, -h); c.lineTo(top, -h); c.lineTo(s / 2, 0); c.closePath(); c.fill();
+    c.fillStyle = f.wrap[1];
+    for (var i = 0; i < 4; i++) {
+      var t0 = 0.12 + i * 0.24, t1 = t0 + 0.11, w0 = s / 2 - (s / 2 - top) * t0, w1 = s / 2 - (s / 2 - top) * t1;
+      c.beginPath(); c.moveTo(-w0, -h * t0); c.lineTo(-w1, -h * t1); c.lineTo(w1, -h * t1); c.lineTo(w0, -h * t0); c.closePath(); c.fill();
+    }
+    c.fillStyle = 'rgba(255,255,255,.18)';
+    c.beginPath(); c.moveTo(-s / 2, 0); c.lineTo(-top, -h); c.lineTo(-top * 0.2, -h); c.lineTo(-s * 0.12, 0); c.closePath(); c.fill();
+    c.fillStyle = '#7a3412'; c.fillRect(-s * 0.56, -s * 0.06, s * 1.12, s * 0.1);
+    c.fillStyle = '#3b1a06'; c.beginPath(); c.ellipse(0, -h, top, top * 0.35, 0, 0, 7); c.fill();
+    c.restore();
+  }
 
-      function burst(r) {
-        var phone = W < 900;
-        var n = phone ? 30 : (r.big ? 60 : 46);
-        var speed = (phone ? 120 : (r.big ? 300 : 230)) * K * (0.9 + rnd() * 0.2);
-        var col2 = rnd() < 0.35 ? COLS[Math.floor(rnd() * COLS.length)] : r.col;
-        for (var i = 0; i < n; i++) {
-          var a = i / n * Math.PI * 2 + rnd() * 0.08, v = speed * (i % 2 ? 0.8 : 1) * (0.92 + rnd() * 0.16);
-          stars.push({ x: r.x, y: r.y, vx: Math.cos(a) * v, vy: Math.sin(a) * v, age: 0, life: 1.5 + rnd() * 0.6,
-                       tw: rnd(), col: i % 3 ? r.col : col2, w: (i % 2 ? 2.4 : 3.2) * K });
-        }
-        for (i = 0; i < n / 2; i++) {
-          a = i / (n / 2) * Math.PI * 2 + 0.2; v = speed * 0.45;
-          stars.push({ x: r.x, y: r.y, vx: Math.cos(a) * v, vy: Math.sin(a) * v, age: 0, life: 1.1 + rnd() * 0.4,
-                       tw: rnd(), col: col2, w: 2 * K });
-        }
-        halos.push({ x: r.x, y: r.y, age: 0, r: speed * 0.45, col: r.col });
+  function drawRockets(t) {
+    var i, p, k;
+    for (i = 0; i < halos.length; i++) {
+      var h = halos[i]; if (h.age > 0.45) continue;
+      k = h.age / 0.45;
+      var g = c.createRadialGradient(h.x, h.y, 0, h.x, h.y, h.r * (0.3 + k * 0.7));
+      g.addColorStop(0, 'rgba(255,245,200,' + (0.9 * (1 - k)) + ')'); g.addColorStop(0.5, hexA(h.col[1], 0.45 * (1 - k)));
+      g.addColorStop(1, hexA(h.col[2], 0));
+      c.fillStyle = g; c.beginPath(); c.arc(h.x, h.y, h.r, 0, 7); c.fill();
+    }
+    for (i = 0; i < rockets.length; i++) {
+      var r = rockets[i];
+      for (var j = 1; j < r.trail.length; j++) {
+        c.globalAlpha = (j / r.trail.length) * 0.9; c.strokeStyle = j % 2 ? '#ffb703' : '#ffd166'; c.lineWidth = (1.4 + j * 0.14) * K;
+        c.beginPath(); c.moveTo(r.trail[j - 1].x, r.trail[j - 1].y); c.lineTo(r.trail[j].x, r.trail[j].y); c.stroke();
       }
+      c.globalAlpha = 1; c.shadowBlur = 14; c.shadowColor = '#ff9f1c'; c.fillStyle = '#fff7d6';
+      c.beginPath(); c.arc(r.x, r.y, 3.4 * K, 0, 7); c.fill(); c.shadowBlur = 0;
+    }
+    for (i = 0; i < stars.length; i++) {
+      p = stars[i]; k = p.age / p.life;
+      c.globalAlpha = Math.max(0, 1 - k * k) * (0.75 + 0.25 * Math.abs(Math.sin(t * 18 + p.tw * 9)));
+      c.strokeStyle = p.col[k < 0.2 ? 1 : k < 0.5 ? 2 : 3];
+      c.lineWidth = p.w; c.shadowColor = p.col[1]; c.shadowBlur = 10;
+      c.beginPath(); c.moveTo(p.x, p.y); c.lineTo(p.x - p.vx * 0.075, p.y - p.vy * 0.075); c.stroke();
+      if (k < 0.3) { c.fillStyle = '#fff7d6'; c.beginPath(); c.arc(p.x, p.y, p.w * 0.7, 0, 7); c.fill(); }
+    }
+    c.globalAlpha = 1; c.shadowBlur = 0;
+  }
 
-      function step(dt) {
-        nextLaunch -= dt;
-        if (nextLaunch <= 0 && halos.length < 5) launch();
-        for (var i = 0; i < rockets.length; i++) {
-          var r = rockets[i];
-          r.trail.push({ x: r.x, y: r.y }); if (r.trail.length > 16) r.trail.shift();
-          r.vy += G * dt; r.x += r.vx * dt; r.y += r.vy * dt;
-          if (r.vy > -40) { burst(r); rockets.splice(i--, 1); }
-        }
-        for (i = 0; i < stars.length; i++) {
-          var p = stars[i], drag = Math.pow(0.12, dt);
-          p.age += dt; p.vx *= drag; p.vy = p.vy * drag + G * 0.18 * dt; p.x += p.vx * dt; p.y += p.vy * dt;
-        }
-        stars = stars.filter(function (p) { return p.age < p.life; });
-        for (i = 0; i < halos.length; i++) halos[i].age += dt;
-        halos = halos.filter(function (h) { return h.age < 1.6; });
-        pots.forEach(function (f) {
-          f.acc += f.rate * dt;
-          while (f.acc >= 1) {
-            f.acc--;
-            var v0 = Math.sqrt(2 * G * f.h) * (0.72 + rnd() * 0.3);
-            var a = (rnd() * 2 - 1) * f.spread * (rnd() < 0.85 ? 1 : 1.6);
-            f.ps.push({ x: f.x, y: f.y, vx: Math.sin(a) * v0, vy: -Math.cos(a) * v0, age: 0,
-                        life: (0.75 + rnd() * 0.5) * 2 * v0 / G * 0.85, tw: rnd(), col: COLS[Math.floor(rnd() * COLS.length)] });
-          }
-          for (var i = 0; i < f.ps.length; i++) {
-            var p = f.ps[i];
-            p.age += dt; p.vy += G * dt; p.vx *= 0.995; p.x += p.vx * dt; p.y += p.vy * dt;
-          }
-          f.ps = f.ps.filter(function (p) { return p.age < p.life; });
-        });
+  function draw(t) {
+    c.clearRect(0, 0, W, H); c.lineCap = 'round';
+    drawRockets(t);
+    pots.forEach(function (f) {
+      drawPot(f);
+      for (var i = 0; i < f.ps.length; i++) {
+        var p = f.ps[i], k = p.age / p.life;
+        c.globalAlpha = Math.max(0, 1 - k * k) * (0.55 + 0.45 * Math.abs(Math.sin(t * 20 + p.tw * 9)));
+        c.strokeStyle = p.col[k < 0.15 ? 0 : k < 0.45 ? 1 : k < 0.75 ? 2 : 3];
+        c.lineWidth = k < 0.3 ? 2.6 : 2;
+        c.shadowColor = p.col[1]; c.shadowBlur = 6;
+        c.beginPath(); c.moveTo(p.x, p.y); c.lineTo(p.x - p.vx * 0.022, p.y - p.vy * 0.022); c.stroke();
       }
+      c.globalAlpha = 1; c.shadowBlur = 18; c.shadowColor = f.col[0]; c.fillStyle = '#fffbe0';
+      c.beginPath(); c.arc(f.x, f.y, 3.2, 0, 7); c.fill();
+      c.shadowBlur = 0;
+    });
+  }
 
-      function drawPot(f) {
-        var s = f.s, h = s * 0.95, top = s * 0.16;
-        c.save(); c.translate(f.x, H - 6);
-        var halo = c.createRadialGradient(0, -h, 0, 0, -h, s * 0.9);
-        halo.addColorStop(0, 'rgba(255,207,107,.75)'); halo.addColorStop(1, 'rgba(255,207,107,0)');
-        c.fillStyle = halo; c.beginPath(); c.ellipse(0, -h, s * 0.9, s * 0.6, 0, 0, 7); c.fill();
-        c.fillStyle = 'rgba(40,20,0,.22)'; c.beginPath(); c.ellipse(0, 1, s * 0.62, s * 0.12, 0, 0, 7); c.fill();
-        c.fillStyle = f.wrap[0];
-        c.beginPath(); c.moveTo(-s / 2, 0); c.lineTo(-top, -h); c.lineTo(top, -h); c.lineTo(s / 2, 0); c.closePath(); c.fill();
-        c.fillStyle = f.wrap[1];
-        for (var i = 0; i < 4; i++) {
-          var t0 = 0.12 + i * 0.24, t1 = t0 + 0.11, w0 = s / 2 - (s / 2 - top) * t0, w1 = s / 2 - (s / 2 - top) * t1;
-          c.beginPath(); c.moveTo(-w0, -h * t0); c.lineTo(-w1, -h * t1); c.lineTo(w1, -h * t1); c.lineTo(w0, -h * t0); c.closePath(); c.fill();
-        }
-        c.fillStyle = 'rgba(255,255,255,.18)';
-        c.beginPath(); c.moveTo(-s / 2, 0); c.lineTo(-top, -h); c.lineTo(-top * 0.2, -h); c.lineTo(-s * 0.12, 0); c.closePath(); c.fill();
-        c.fillStyle = '#7a3412'; c.fillRect(-s * 0.56, -s * 0.06, s * 1.12, s * 0.1);
-        c.fillStyle = '#3b1a06'; c.beginPath(); c.ellipse(0, -h, top, top * 0.35, 0, 0, 7); c.fill();
-        c.restore();
-      }
-
-      function drawRockets(t) {
-        var i, p, k;
-        for (i = 0; i < halos.length; i++) {
-          var h = halos[i]; if (h.age > 0.45) continue;
-          k = h.age / 0.45;
-          var g = c.createRadialGradient(h.x, h.y, 0, h.x, h.y, h.r * (0.3 + k * 0.7));
-          g.addColorStop(0, 'rgba(255,245,200,' + (0.9 * (1 - k)) + ')'); g.addColorStop(0.5, hexA(h.col[1], 0.45 * (1 - k)));
-          g.addColorStop(1, hexA(h.col[2], 0));
-          c.fillStyle = g; c.beginPath(); c.arc(h.x, h.y, h.r, 0, 7); c.fill();
-        }
-        for (i = 0; i < rockets.length; i++) {
-          var r = rockets[i];
-          for (var j = 1; j < r.trail.length; j++) {
-            c.globalAlpha = (j / r.trail.length) * 0.9; c.strokeStyle = j % 2 ? '#ffb703' : '#ffd166'; c.lineWidth = (1.4 + j * 0.14) * K;
-            c.beginPath(); c.moveTo(r.trail[j - 1].x, r.trail[j - 1].y); c.lineTo(r.trail[j].x, r.trail[j].y); c.stroke();
-          }
-          c.globalAlpha = 1; c.shadowBlur = 14; c.shadowColor = '#ff9f1c'; c.fillStyle = '#fff7d6';
-          c.beginPath(); c.arc(r.x, r.y, 3.4 * K, 0, 7); c.fill(); c.shadowBlur = 0;
-        }
-        for (i = 0; i < stars.length; i++) {
-          p = stars[i]; k = p.age / p.life;
-          c.globalAlpha = Math.max(0, 1 - k * k) * (0.75 + 0.25 * Math.abs(Math.sin(t * 18 + p.tw * 9)));
-          c.strokeStyle = p.col[k < 0.2 ? 1 : k < 0.5 ? 2 : 3];
-          c.lineWidth = p.w; c.shadowColor = p.col[1]; c.shadowBlur = 10;
-          c.beginPath(); c.moveTo(p.x, p.y); c.lineTo(p.x - p.vx * 0.075, p.y - p.vy * 0.075); c.stroke();
-          if (k < 0.3) { c.fillStyle = '#fff7d6'; c.beginPath(); c.arc(p.x, p.y, p.w * 0.7, 0, 7); c.fill(); }
-        }
-        c.globalAlpha = 1; c.shadowBlur = 0;
-      }
-
-      function draw(t) {
-        c.clearRect(0, 0, W, H); c.lineCap = 'round';
-        drawRockets(t);
-        pots.forEach(function (f) {
-          drawPot(f);
-          for (var i = 0; i < f.ps.length; i++) {
-            var p = f.ps[i], k = p.age / p.life;
-            c.globalAlpha = Math.max(0, 1 - k * k) * (0.55 + 0.45 * Math.abs(Math.sin(t * 20 + p.tw * 9)));
-            c.strokeStyle = p.col[k < 0.15 ? 0 : k < 0.45 ? 1 : k < 0.75 ? 2 : 3];
-            c.lineWidth = k < 0.3 ? 2.6 : 2;
-            c.shadowColor = p.col[1]; c.shadowBlur = 6;
-            c.beginPath(); c.moveTo(p.x, p.y); c.lineTo(p.x - p.vx * 0.022, p.y - p.vy * 0.022); c.stroke();
-          }
-          c.globalAlpha = 1; c.shadowBlur = 18; c.shadowColor = f.col[0]; c.fillStyle = '#fffbe0';
-          c.beginPath(); c.arc(f.x, f.y, 3.2, 0, 7); c.fill();
-          c.shadowBlur = 0;
-        });
-      }
-
-      layout();
-      window.addEventListener('resize', function () { layout(); if (still) { warm(); draw(0.37); } });
-      function warm() {
-        pots.forEach(function (f) { f.ps = []; }); rockets = []; stars = []; halos = [];
-        for (var i = 0; i < 300; i++) step(1 / 60);
-        rockets = []; stars = []; halos = [];
-        burst({ x: W * 0.2, y: H * 0.26, col: COLS[1], big: true }); burst({ x: W * 0.8, y: H * 0.3, col: COLS[0], big: false });
-        nextLaunch = 10; for (i = 0; i < 24; i++) step(1 / 60);
-      }
-      if (still) { warm(); draw(0.37); return; }
-      var last = performance.now();
-      (function loop(now) {
-        step(Math.min(0.033, (now - last) / 1000)); last = now;
-        draw(now / 1000);
-        requestAnimationFrame(loop);
-      })(last);
-    })();
-    </script>
-</body>
-</html>
+  layout();
+  window.addEventListener('resize', function () { layout(); if (still) { warm(); draw(0.37); } });
+  function warm() {
+    pots.forEach(function (f) { f.ps = []; }); rockets = []; stars = []; halos = [];
+    for (var i = 0; i < 300; i++) step(1 / 60);
+    rockets = []; stars = []; halos = [];
+    burst({ x: W * 0.2, y: H * 0.26, col: COLS[1], big: true }); burst({ x: W * 0.8, y: H * 0.3, col: COLS[0], big: false });
+    nextLaunch = 10; for (i = 0; i < 24; i++) step(1 / 60);
+  }
+  if (still) { warm(); draw(0.37); return; }
+  var last = performance.now();
+  (function loop(now) {
+    step(Math.min(0.033, (now - last) / 1000)); last = now;
+    draw(now / 1000);
+    requestAnimationFrame(loop);
+  })(last);
+})();
