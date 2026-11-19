@@ -9,22 +9,22 @@
     <title>YALMAZ MART - Diwali & Chhath Puja Special | Hajipur</title>
     <style>
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
-        body { background-color: #fffbeb; color: #1f2937; line-height: 1.6; }
+        body { background-color: #fffbeb; color: #1f2937; line-height: 1.6; overflow-x: hidden; }
         
-        /* Festive Top Banner */
-        .festive-strip { background: linear-gradient(90deg, #f59e0b, #fbbf24, #f59e0b); color: #7f1d1d; text-align: center; padding: 0.5rem; font-weight: bold; font-size: 0.95rem; letter-spacing: 0.5px; border-bottom: 2px solid #991b1b; }
+        .festive-strip { background: linear-gradient(90deg, #f59e0b, #fbbf24, #f59e0b); color: #7f1d1d; text-align: center; padding: 0.5rem; font-weight: bold; font-size: 0.95rem; letter-spacing: 0.5px; border-bottom: 2px solid #991b1b; position: relative; z-index: 10; }
         
-        /* Header with Diwali & Chhath Theme */
-        header { background: radial-gradient(circle at top, #b91c1c, #7f1d1d); color: #fef3c7; text-align: center; padding: 2.2rem 1rem; box-shadow: 0 4px 12px rgba(127, 29, 29, 0.3); border-bottom: 4px solid #f59e0b; position: relative; }
+        header { background: radial-gradient(circle at top, #991b1b, #450a0a); color: #fef3c7; text-align: center; padding: 2.5rem 1rem; box-shadow: 0 4px 12px rgba(127, 29, 29, 0.4); border-bottom: 4px solid #f59e0b; position: relative; overflow: hidden; }
+        #fireworksCanvas { position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 1; }
+        .header-content { position: relative; z-index: 2; }
+        
         .diya-row { font-size: 1.5rem; margin-bottom: 0.4rem; letter-spacing: 8px; }
-        header h1 { font-size: 2.4rem; letter-spacing: 1.5px; margin-bottom: 0.2rem; color: #fbbf24; text-shadow: 2px 2px 4px rgba(0,0,0,0.4); }
+        header h1 { font-size: 2.4rem; letter-spacing: 1.5px; margin-bottom: 0.2rem; color: #fbbf24; text-shadow: 2px 2px 6px rgba(0,0,0,0.6); }
         header p { font-size: 1.1rem; color: #fde68a; font-weight: 500; }
         
         .badge-container { margin-top: 1rem; display: flex; justify-content: center; gap: 0.6rem; flex-wrap: wrap; }
-        .badge { display: inline-block; background: #fbbf24; color: #7f1d1d; padding: 0.35rem 1rem; border-radius: 20px; font-size: 0.85rem; font-weight: bold; box-shadow: 0 2px 5px rgba(0,0,0,0.2); }
-        .badge-timing { display: inline-block; background: #ffffff; color: #991b1b; padding: 0.35rem 1rem; border-radius: 20px; font-size: 0.85rem; font-weight: bold; box-shadow: 0 2px 5px rgba(0,0,0,0.2); }
+        .badge { display: inline-block; background: #fbbf24; color: #7f1d1d; padding: 0.35rem 1rem; border-radius: 20px; font-size: 0.85rem; font-weight: bold; box-shadow: 0 2px 5px rgba(0,0,0,0.3); }
+        .badge-timing { display: inline-block; background: #ffffff; color: #991b1b; padding: 0.35rem 1rem; border-radius: 20px; font-size: 0.85rem; font-weight: bold; box-shadow: 0 2px 5px rgba(0,0,0,0.3); }
         
-        /* Offer Highlight Box */
         .offer-banner { background: linear-gradient(135deg, #fef3c7, #fde68a); border: 2px dashed #d97706; border-radius: 12px; padding: 1rem; text-align: center; margin: 1.5rem auto; max-width: 900px; color: #7f1d1d; }
         .offer-banner h3 { font-size: 1.25rem; margin-bottom: 0.2rem; color: #991b1b; }
         .offer-banner p { font-size: 0.98rem; font-weight: 500; }
@@ -63,16 +63,19 @@
 <body>
 
     <div class="festive-strip">
-        🪔 शुभ दीपावली एवं छठ महापर्व की हार्दिक शुभकामनाएं 🌅
+        🎆 शुभ दीपावली एवं छठ महापर्व की हार्दिक शुभकामनाएं 🎇
     </div>
 
     <header>
-        <div class="diya-row">🪔 ✨ 🌅 ✨ 🪔</div>
-        <h1>YALMAZ MART</h1>
-        <p>Your Trusted General Store in Hajipur</p>
-        <div class="badge-container">
-            <span class="badge">🎉 Diwali & Chhath Puja Special</span>
-            <span class="badge-timing">⏰ 7:00 AM - 8:00 PM (Mon Closed)</span>
+        <canvas id="fireworksCanvas"></canvas>
+        <div class="header-content">
+            <div class="diya-row">🪔 🎆 🌅 🎇 🪔</div>
+            <h1>YALMAZ MART</h1>
+            <p>Your Trusted General Store in Hajipur</p>
+            <div class="badge-container">
+                <span class="badge">🎉 Diwali & Chhath Puja Special</span>
+                <span class="badge-timing">⏰ 7:00 AM - 8:00 PM (Mon Closed)</span>
+            </div>
         </div>
     </header>
 
@@ -83,15 +86,14 @@
         </div>
 
         <div class="center-box">
-            <h2 class="section-title">🛍️ Our Products (उपलब्ध सामान)</h2>
+            <h2 class="section-title">🛍️ Our Products (सभी 16 उपलब्ध सामान)</h2>
         </div>
 
         <div class="search-box">
-            <input type="text" id="searchInput" onkeyup="searchProducts()" placeholder="🔍 सामान खोजें (जैसे: Rice, Oil, Aata, Soap)...">
+            <input type="text" id="searchInput" onkeyup="searchProducts()" placeholder="🔍 सामान खोजें (जैसे: Rice, Oil, Aata, Soap, Dal)...">
         </div>
 
         <div class="products" id="productList">
-            <!-- Product 1 -->
             <div class="card">
                 <span class="festive-tag">Chhath Special</span>
                 <div>
@@ -102,7 +104,6 @@
                 <a class="btn-whatsapp" href="https://wa.me." target="_blank">📲 Order on WhatsApp</a>
             </div>
 
-            <!-- Product 2 -->
             <div class="card">
                 <span class="festive-tag">Festive Pick</span>
                 <div>
@@ -113,7 +114,6 @@
                 <a class="btn-whatsapp" href="https://wa.me." target="_blank">📲 Order on WhatsApp</a>
             </div>
 
-            <!-- Product 3 -->
             <div class="card">
                 <div>
                     <div class="icon">🍚</div>
@@ -123,7 +123,6 @@
                 <a class="btn-whatsapp" href="https://wa.me." target="_blank">📲 Order on WhatsApp</a>
             </div>
 
-            <!-- Product 4 -->
             <div class="card">
                 <span class="festive-tag">Pure Quality</span>
                 <div>
@@ -134,7 +133,6 @@
                 <a class="btn-whatsapp" href="https://wa.me." target="_blank">📲 Order on WhatsApp</a>
             </div>
 
-            <!-- Product 5 -->
             <div class="card">
                 <div>
                     <div class="icon">🌻</div>
@@ -144,7 +142,6 @@
                 <a class="btn-whatsapp" href="https://wa.me." target="_blank">📲 Order on WhatsApp</a>
             </div>
 
-            <!-- Product 6 -->
             <div class="card">
                 <span class="festive-tag">Prasad Special</span>
                 <div>
@@ -155,6 +152,3 @@
                 <a class="btn-whatsapp" href="https://wa.me." target="_blank">📲 Order on WhatsApp</a>
             </div>
 
-            <!-- Product 7 -->
-            <div class="card">
-                <div>
