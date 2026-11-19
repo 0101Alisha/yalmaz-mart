@@ -3,152 +3,146 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="theme-color" content="#991b1b">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-title" content="YALMAZ MART">
-    <title>YALMAZ MART - Diwali & Chhath Puja Special | Hajipur</title>
+    <title>YALMAZ MART - Diwali & Chhath Special | Hajipur</title>
     <style>
-        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
-        body { background-color: #fffbeb; color: #1f2937; line-height: 1.6; overflow-x: hidden; }
-        
-        .festive-strip { background: linear-gradient(90deg, #f59e0b, #fbbf24, #f59e0b); color: #7f1d1d; text-align: center; padding: 0.5rem; font-weight: bold; font-size: 0.95rem; letter-spacing: 0.5px; border-bottom: 2px solid #991b1b; position: relative; z-index: 10; }
-        
-        header { background: radial-gradient(circle at top, #991b1b, #450a0a); color: #fef3c7; text-align: center; padding: 2.5rem 1rem; box-shadow: 0 4px 12px rgba(127, 29, 29, 0.4); border-bottom: 4px solid #f59e0b; position: relative; overflow: hidden; }
-        #fireworksCanvas { position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 1; }
-        .header-content { position: relative; z-index: 2; }
-        
-        .diya-row { font-size: 1.5rem; margin-bottom: 0.4rem; letter-spacing: 8px; }
-        header h1 { font-size: 2.4rem; letter-spacing: 1.5px; margin-bottom: 0.2rem; color: #fbbf24; text-shadow: 2px 2px 6px rgba(0,0,0,0.6); }
-        header p { font-size: 1.1rem; color: #fde68a; font-weight: 500; }
-        
-        .badge-container { margin-top: 1rem; display: flex; justify-content: center; gap: 0.6rem; flex-wrap: wrap; }
-        .badge { display: inline-block; background: #fbbf24; color: #7f1d1d; padding: 0.35rem 1rem; border-radius: 20px; font-size: 0.85rem; font-weight: bold; box-shadow: 0 2px 5px rgba(0,0,0,0.3); }
-        .badge-timing { display: inline-block; background: #ffffff; color: #991b1b; padding: 0.35rem 1rem; border-radius: 20px; font-size: 0.85rem; font-weight: bold; box-shadow: 0 2px 5px rgba(0,0,0,0.3); }
-        
-        .offer-banner { background: linear-gradient(135deg, #fef3c7, #fde68a); border: 2px dashed #d97706; border-radius: 12px; padding: 1rem; text-align: center; margin: 1.5rem auto; max-width: 900px; color: #7f1d1d; }
-        .offer-banner h3 { font-size: 1.25rem; margin-bottom: 0.2rem; color: #991b1b; }
-        .offer-banner p { font-size: 0.98rem; font-weight: 500; }
-
-        .container { max-width: 1000px; margin: 1.2rem auto 2rem auto; padding: 0 1rem; }
-        .section-title { text-align: center; font-size: 1.65rem; color: #991b1b; margin-bottom: 1rem; border-bottom: 3px solid #f59e0b; display: inline-block; padding-bottom: 0.3rem; }
-        .center-box { text-align: center; }
-        
-        .search-box { max-width: 480px; margin: 0 auto 1.8rem auto; }
-        .search-box input { width: 100%; padding: 0.85rem 1.2rem; border: 2px solid #d97706; border-radius: 25px; font-size: 1rem; outline: none; background: white; box-shadow: 0 2px 6px rgba(217, 119, 6, 0.15); }
-        .search-box input:focus { border-color: #991b1b; box-shadow: 0 0 8px rgba(153, 27, 27, 0.3); }
-        
-        .products { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1.2rem; margin-bottom: 2.5rem; }
-        .card { background: white; border-radius: 14px; padding: 1.3rem; text-align: center; box-shadow: 0 4px 12px rgba(153, 27, 27, 0.08); transition: transform 0.2s, box-shadow 0.2s; border-top: 4px solid #d97706; border-bottom: 2px solid #fde68a; display: flex; flex-direction: column; justify-content: space-between; position: relative; }
-        .card:hover { transform: translateY(-5px); box-shadow: 0 8px 18px rgba(153, 27, 27, 0.15); }
-        .festive-tag { position: absolute; top: 8px; right: 8px; background: #fef3c7; color: #991b1b; font-size: 0.7rem; font-weight: bold; padding: 2px 7px; border-radius: 10px; border: 1px solid #f59e0b; }
-        .icon { font-size: 2.7rem; margin-bottom: 0.4rem; }
-        .card h3 { font-size: 1.15rem; margin-bottom: 0.3rem; color: #1f2937; }
-        .price { font-size: 1.25rem; font-weight: bold; color: #b91c1c; margin-bottom: 0.9rem; }
-        
-        .btn-whatsapp { display: inline-block; background: linear-gradient(135deg, #16a34a, #15803d); color: white; text-decoration: none; padding: 0.65rem 1rem; border-radius: 8px; font-weight: bold; width: 100%; font-size: 0.95rem; transition: opacity 0.3s; }
-        .btn-whatsapp:hover { opacity: 0.9; }
-        
-        .info-box { background: white; border-radius: 14px; padding: 1.8rem; box-shadow: 0 4px 12px rgba(153, 27, 27, 0.08); margin-bottom: 2rem; border-left: 6px solid #b91c1c; border-right: 6px solid #f59e0b; }
-        .info-box h2 { color: #991b1b; margin-bottom: 1rem; font-size: 1.4rem; }
-        .info-item { margin-bottom: 0.7rem; font-size: 1.05rem; }
-        .closed-day { color: #dc2626; font-weight: bold; }
-        
-        .action-buttons { display: flex; gap: 1rem; flex-wrap: wrap; margin-top: 1.5rem; }
-        .btn-call { background: linear-gradient(135deg, #b91c1c, #991b1b); color: #fef3c7; text-decoration: none; padding: 0.85rem 1.5rem; border-radius: 8px; font-weight: bold; flex: 1; text-align: center; min-width: 150px; border: 1px solid #f59e0b; }
-        .btn-chat { background: linear-gradient(135deg, #16a34a, #15803d); color: white; text-decoration: none; padding: 0.85rem 1.5rem; border-radius: 8px; font-weight: bold; flex: 1; text-align: center; min-width: 150px; }
-        
-        footer { background-color: #7f1d1d; color: #fde68a; text-align: center; padding: 1.5rem 1rem; margin-top: 3rem; font-size: 0.95rem; border-top: 3px solid #f59e0b; }
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, sans-serif; }
+        body { background-color: #fffbeb; color: #1f2937; overflow-x: hidden; }
+        .strip { background: linear-gradient(90deg, #f59e0b, #fbbf24, #f59e0b); color: #7f1d1d; text-align: center; padding: 8px; font-weight: bold; border-bottom: 2px solid #991b1b; }
+        header { background: radial-gradient(circle at top, #991b1b, #450a0a); color: #fef3c7; text-align: center; padding: 35px 15px; border-bottom: 4px solid #f59e0b; position: relative; overflow: hidden; }
+        #fwCanvas { position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 1; }
+        .h-content { position: relative; z-index: 2; }
+        header h1 { font-size: 2.4rem; color: #fbbf24; text-shadow: 2px 2px 6px #000; }
+        .badges { margin-top: 12px; display: flex; justify-content: center; gap: 10px; flex-wrap: wrap; }
+        .badge { background: #fbbf24; color: #7f1d1d; padding: 5px 14px; border-radius: 20px; font-weight: bold; font-size: 0.85rem; }
+        .badge-w { background: #fff; color: #991b1b; }
+        .container { max-width: 1000px; margin: 20px auto; padding: 0 15px; }
+        .offer { background: #fef3c7; border: 2px dashed #d97706; border-radius: 12px; padding: 14px; text-align: center; margin-bottom: 20px; color: #7f1d1d; }
+        .title-box { text-align: center; margin-bottom: 15px; }
+        .title-box h2 { color: #991b1b; border-bottom: 3px solid #f59e0b; display: inline-block; padding-bottom: 4px; }
+        .search { max-width: 450px; margin: 0 auto 22px auto; }
+        .search input { width: 100%; padding: 12px 18px; border: 2px solid #d97706; border-radius: 25px; font-size: 1rem; outline: none; }
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 16px; margin-bottom: 30px; }
+        .card { background: #fff; border-radius: 12px; padding: 18px; text-align: center; box-shadow: 0 4px 10px rgba(153,27,27,0.1); border-top: 4px solid #d97706; display: flex; flex-direction: column; justify-content: space-between; position: relative; }
+        .tag { position: absolute; top: 8px; right: 8px; background: #fef3c7; color: #991b1b; font-size: 0.7rem; font-weight: bold; padding: 2px 7px; border-radius: 8px; border: 1px solid #f59e0b; }
+        .icon { font-size: 2.5rem; margin-bottom: 6px; }
+        .price { font-size: 1.2rem; font-weight: bold; color: #b91c1c; margin: 8px 0 12px 0; }
+        .btn-wa { background: #16a34a; color: #fff; text-decoration: none; padding: 10px; border-radius: 8px; font-weight: bold; display: block; }
+        .info { background: #fff; border-radius: 12px; padding: 22px; box-shadow: 0 4px 10px rgba(0,0,0,0.08); border-left: 6px solid #b91c1c; border-right: 6px solid #f59e0b; }
+        .info h2 { color: #991b1b; margin-bottom: 12px; }
+        .info p { margin-bottom: 8px; font-size: 1.05rem; }
+        .btns { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 15px; }
+        .btn-c { background: #991b1b; color: #fef3c7; text-decoration: none; padding: 12px; border-radius: 8px; font-weight: bold; flex: 1; text-align: center; }
+        .btn-w { background: #16a34a; color: #fff; text-decoration: none; padding: 12px; border-radius: 8px; font-weight: bold; flex: 1; text-align: center; }
+        footer { background: #7f1d1d; color: #fde68a; text-align: center; padding: 18px; margin-top: 30px; border-top: 3px solid #f59e0b; }
     </style>
 </head>
 <body>
-
-    <div class="festive-strip">
-        🎆 शुभ दीपावली एवं छठ महापर्व की हार्दिक शुभकामनाएं 🎇
-    </div>
-
+    <div class="strip">✨ शुभ दीपावली एवं छठ महापर्व की हार्दिक शुभकामनाएं ✨</div>
     <header>
-        <canvas id="fireworksCanvas"></canvas>
-        <div class="header-content">
-            <div class="diya-row">🪔 🎆 🌅 🎇 🪔</div>
+        <canvas id="fwCanvas"></canvas>
+        <div class="h-content">
+            <div style="font-size:1.5rem; letter-spacing:6px;">🪔 ✨ 🎆 🌅 🎇 ✨ 🪔</div>
             <h1>YALMAZ MART</h1>
             <p>Your Trusted General Store in Hajipur</p>
-            <div class="badge-container">
+            <div class="badges">
                 <span class="badge">🎉 Diwali & Chhath Puja Special</span>
-                <span class="badge-timing">⏰ 7:00 AM - 8:00 PM (Mon Closed)</span>
+                <span class="badge badge-w">⏰ 7:00 AM - 8:00 PM (Mon Closed)</span>
             </div>
         </div>
     </header>
 
     <div class="container">
-        <div class="offer-banner">
+        <div class="offer">
             <h3>🪔 छठ पूजा एवं दिवाली के लिए शुद्ध और ताज़ा राशन उपलब्ध! 🌅</h3>
-            <p>आटा, शुद्ध चावल, सरसों तेल, चीनी, दाल और पूजा व घर की सभी ज़रूरी चीज़ें उचित दाम पर घर बैठे WhatsApp से मंगाएं।</p>
+            <p>घर बैठे WhatsApp पर ऑर्डर करें और उचित दाम पर ताज़ा सामान पाएं।</p>
         </div>
 
-        <div class="center-box">
-            <h2 class="section-title">🛍️ Our Products (सभी 16 उपलब्ध सामान)</h2>
+        <div class="title-box"><h2>🛍️ Our Products (सभी 16 उपलब्ध सामान)</h2></div>
+        <div class="search"><input type="text" id="q" onkeyup="filterItems()" placeholder="🔍 सामान खोजें (जैसे: Rice, Oil, Soap, Dal)..."></div>
+        <div class="grid" id="grid"></div>
+
+        <div class="info">
+            <h2>🪔 Store Details & Timing (दुकान का पता और समय)</h2>
+            <p><strong>Shop Name:</strong> YALMAZ MART (General Store)</p>
+            <p><strong>⏰ Opening Hours:</strong> 7:00 AM to 8:00 PM</p>
+            <p><strong>📅 Open Days:</strong> Tuesday to Sunday (<span style="color:#dc2626;font-weight:bold;">Monday Closed / सोमवार बंद</span>)</p>
+            <p><strong>🏠 Address:</strong> Nakhas Chowk, Ander Kila, Hajipur, Vaishali - 844101</p>
+            <p><strong>📞 Contact / WhatsApp:</strong> +91 8292887576</p>
+            <div class="btns">
+                <a href="tel:+918292887576" class="btn-c">📞 Call Now</a>
+                <a href="https://wa.me." target="_blank" class="btn-w">💬 Chat on WhatsApp</a>
+            </div>
         </div>
+    </div>
 
-        <div class="search-box">
-            <input type="text" id="searchInput" onkeyup="searchProducts()" placeholder="🔍 सामान खोजें (जैसे: Rice, Oil, Aata, Soap, Dal)...">
-        </div>
+    <footer><p>✨ Wishing You a Very Happy Diwali & Chhath Puja! ✨<br>&copy; 2026 YALMAZ MART, Hajipur.</p></footer>
 
-        <div class="products" id="productList">
-            <div class="card">
-                <span class="festive-tag">Chhath Special</span>
-                <div>
-                    <div class="icon">🌾</div>
-                    <h3>Aata (आटा)</h3>
-                    <p class="price">₹45 / Kg</p>
-                </div>
-                <a class="btn-whatsapp" href="https://wa.me." target="_blank">📲 Order on WhatsApp</a>
-            </div>
+    <script>
+        const items = [
+            ["🌾", "Aata (आटा)", "₹45 / Kg", "Chhath Special"],
+            ["🍚", "Basmati Rice", "₹100 / Kg", "Festive Pick"],
+            ["🍚", "Nafice Rice", "₹110 / Kg", ""],
+            ["🛢️", "Mustard Oil (सरसों तेल)", "₹170 / Lt", "Pure Quality"],
+            ["🌻", "Fortune Oil", "₹165 / Lt", ""],
+            ["🍬", "Sugar (चीनी)", "₹75 / Kg", "Prasad Special"],
+            ["🧂", "Salt (नमक)", "₹40 / Kg", ""],
+            ["🍲", "Dal (Pulses)", "₹80 / Kg", ""],
+            ["🟡", "Mung Dal (मूंग दाल)", "₹98 / Kg", ""],
+            ["🟠", "Chana Dal (चना दाल)", "₹75 / Kg", ""],
+            ["🟤", "Chana (चना)", "₹80 / Kg", "Puja Special"],
+            ["🫓", "Papad Lizzat", "₹75 / Pc", ""],
+            ["🧼", "Fiama Soap", "₹60 / Pc", ""],
+            ["🧼", "Lifebuoy Soap", "₹45 / Pc", ""],
+            ["🧽", "Rin Soap", "₹10 / Pc", ""],
+            ["🧺", "Surf Excel", "₹220 / Kg", "Safai Special"]
+        ];
 
-            <div class="card">
-                <span class="festive-tag">Festive Pick</span>
-                <div>
-                    <div class="icon">🍚</div>
-                    <h3>Basmati Rice</h3>
-                    <p class="price">₹100 / Kg</p>
-                </div>
-                <a class="btn-whatsapp" href="https://wa.me." target="_blank">📲 Order on WhatsApp</a>
-            </div>
+        const grid = document.getElementById("grid");
+        items.forEach(p => {
+            const msg = encodeURIComponent(`Hello YALMAZ MART, I want to order ${p[1]} (${p[2]}).`);
+            grid.innerHTML += `<div class="card">${p[3]?`<span class="tag">${p[3]}</span>`:''}<div><div class="icon">${p[0]}</div><h3>${p[1]}</h3><div class="price">${p[2]}</div></div><a class="btn-wa" href="https://wa.me{msg}" target="_blank">📲 Order on WhatsApp</a></div>`;
+        });
 
-            <div class="card">
-                <div>
-                    <div class="icon">🍚</div>
-                    <h3>Nafice Rice</h3>
-                    <p class="price">₹110 / Kg</p>
-                </div>
-                <a class="btn-whatsapp" href="https://wa.me." target="_blank">📲 Order on WhatsApp</a>
-            </div>
+        function filterItems() {
+            const v = document.getElementById("q").value.toLowerCase();
+            document.querySelectorAll(".card").forEach(c => {
+                c.style.display = c.querySelector("h3").innerText.toLowerCase().includes(v) ? "flex" : "none";
+            });
+        }
 
-            <div class="card">
-                <span class="festive-tag">Pure Quality</span>
-                <div>
-                    <div class="icon">🫗</div>
-                    <h3>Mustard Oil (सरसों तेल)</h3>
-                    <p class="price">₹170 / Lt</p>
-                </div>
-                <a class="btn-whatsapp" href="https://wa.me." target="_blank">📲 Order on WhatsApp</a>
-            </div>
+        const c = document.getElementById("fwCanvas"), ctx = c.getContext("2d");
+        let pts = [];
+        function resize() { c.width = c.parentElement.offsetWidth; c.height = c.parentElement.offsetHeight; }
+        window.onresize = resize; resize();
 
-            <div class="card">
-                <div>
-                    <div class="icon">🌻</div>
-                    <h3>Fortune Oil</h3>
-                    <p class="price">₹165 / Lt</p>
-                </div>
-                <a class="btn-whatsapp" href="https://wa.me." target="_blank">📲 Order on WhatsApp</a>
-            </div>
+        function boom(isSparkler) {
+            const x = isSparkler ? (Math.random() > 0.5 ? c.width * 0.12 : c.width * 0.88) : Math.random() * c.width;
+            const y = isSparkler ? c.height * 0.55 : Math.random() * (c.height * 0.65);
+            const cols = isSparkler ? ["#fef08a", "#fbbf24", "#ffffff"] : ["#fbbf24", "#f87171", "#34d399", "#60a5fa", "#f472b6"];
+            const col = cols[Math.floor(Math.random() * cols.length)];
+            const count = isSparkler ? 14 : 26;
+            for (let i = 0; i < count; i++) {
+                const a = Math.random() * Math.PI * 2, s = Math.random() * (isSparkler ? 3.5 : 2.5) + 0.8;
+                pts.push({ x, y, vx: Math.cos(a) * s, vy: Math.sin(a) * s, a: 1, col, sp: isSparkler });
+            }
+        }
 
-            <div class="card">
-                <span class="festive-tag">Prasad Special</span>
-                <div>
-                    <div class="icon">🍬</div>
-                    <h3>Sugar (चीनी)</h3>
-                    <p class="price">₹75 / Kg</p>
-                </div>
-                <a class="btn-whatsapp" href="https://wa.me." target="_blank">📲 Order on WhatsApp</a>
-            </div>
-
+        function loop() {
+            ctx.clearRect(0, 0, c.width, c.height);
+            for (let i = pts.length - 1; i >= 0; i--) {
+                let p = pts[i];
+                p.x += p.vx; p.y += p.vy; p.vy += 0.04; p.a -= p.sp ? 0.035 : 0.018;
+                if (p.a <= 0) pts.splice(i, 1);
+                else {
+                    ctx.globalAlpha = p.a; ctx.fillStyle = p.col;
+                    ctx.beginPath(); ctx.arc(p.x, p.y, p.sp ? 1.6 : 2.2, 0, Math.PI * 2); ctx.fill();
+                }
+            }
+            requestAnimationFrame(loop);
+        }
+        setInterval(() => boom(false), 1100);
+        setInterval(() => boom(true), 220);
+        loop();
+    </script>
+</body>
+</html>
