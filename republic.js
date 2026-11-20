@@ -99,7 +99,7 @@
 
         planeX += 160;
         if (planeX > canvas.width + 150) {
-            planeX = -150;
+            planeX = -250;
         }
 
         requestAnimationFrame(animate);
