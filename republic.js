@@ -97,8 +97,8 @@
 
         formation.forEach(jet => drawJet(planeX + jet.dx, jet.dy));
 
-        planeX += 160;
-        if (planeX > canvas.width + 150) {
+        planeX += 1600;
+        if (planeX > canvas.width + 100) {
             planeX = -250;
         }
 
